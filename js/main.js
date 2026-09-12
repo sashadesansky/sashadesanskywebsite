@@ -53,39 +53,11 @@
     .map((p) => `<p>${escapeHTML(p)}</p>`)
     .join("");
 
-  // ---- Experience ---------------------------------------------------------
-  const expList = $("experience-list");
-  expList.innerHTML = (data.experience || [])
-    .map((company) => {
-      const roles = (company.roles || [])
-        .map((role) => {
-          const metaParts = [role.employmentType, role.dates, role.duration, role.location].filter(Boolean);
-          const bullets = (role.bullets || [])
-            .map((b) => `<li>${escapeHTML(b)}</li>`)
-            .join("");
-          return `
-            <div class="story-row">
-              <div class="role-title-row">
-                <span class="role-title">${escapeHTML(role.title)}</span>
-              </div>
-              <div class="role-meta">${escapeHTML(metaParts.join(" · "))}</div>
-              ${bullets ? `<ul class="role-bullets">${bullets}</ul>` : ""}
-            </div>
-          `;
-        })
-        .join("");
-
-      return `
-        <div class="company-block">
-          <div class="company-header">
-            <span class="company-name">${escapeHTML(company.company)}</span>
-            ${company.totalTenure ? `<span class="company-tenure">${escapeHTML(company.totalTenure)}</span>` : ""}
-          </div>
-          ${roles}
-        </div>
-      `;
-    })
-    .join("");
+  // ---- Experience (points to LinkedIn) -------------------------------------
+  $("experience-heading").textContent = data.experience.heading || "Experience";
+  $("experience-note").textContent = data.experience.note || "";
+  $("experience-linkedin").textContent = data.experience.buttonLabel || "View LinkedIn Profile";
+  $("experience-linkedin").href = data.site.linkedin || "#";
 
   // ---- Education ------------------------------------------------------
   const eduList = $("education-list");

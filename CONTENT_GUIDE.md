@@ -77,11 +77,11 @@ then in `content.js` find the `site:` section near the top and set:
 photo: "your-filename.jpg"
 ```
 
-### Update a job, add a new role, or change your title
-Find the `experience:` section. Each company is one block with a list of
-`roles`. To add a new role at your current company (say, a promotion),
-copy an existing role block inside that company's `roles: [ ... ]` list and
-edit the `title`, `dates`, `duration`, and `bullets`.
+### Change the Experience section text
+The Experience section on the site doesn't list individual jobs — it just
+points visitors to your LinkedIn profile. Find the `experience:` section
+in `content.js` and edit `heading`, `note`, or `buttonLabel` to change that
+wording.
 
 ### Update your email or LinkedIn link
 Find the `site:` section at the top of `content.js` and edit `email` and

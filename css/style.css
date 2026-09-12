@@ -320,86 +320,18 @@ section.page-section:last-of-type {
 }
 
 /* -------------------------------------------------------------------------
-   Experience — story rows
+   Experience pointer (redirects to LinkedIn)
    ------------------------------------------------------------------------- */
 
-.company-block {
-  margin-bottom: var(--space-3xl);
-}
-
-.company-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-  border-bottom: 1px solid var(--color-hairline);
-  padding-bottom: var(--space-md);
-  margin-bottom: var(--space-md);
-}
-
-.company-name {
-  font-family: var(--font-display);
-  font-size: 26px;
-  font-weight: 400;
-  line-height: 28px;
-}
-
-.company-tenure {
-  font-family: var(--font-sans);
-  font-size: 14px;
-  color: var(--color-body);
-  letter-spacing: 0.4px;
-}
-
-.story-row {
-  background: var(--color-canvas);
-  color: var(--color-ink);
-  border-bottom: 1px solid var(--color-hairline);
-  padding: var(--space-lg) 0;
-}
-
-.story-row:last-child {
-  border-bottom: none;
-}
-
-.role-title-row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-xs);
-}
-
-.role-title {
-  font-family: var(--font-sans);
-  font-size: 17px;
-  font-weight: 700;
-  line-height: 22px;
-  letter-spacing: -0.144px;
-}
-
-.role-meta {
-  font-family: var(--font-sans);
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--color-body);
-}
-
-.role-bullets {
-  margin: var(--space-sm) 0 0;
-  padding-left: 1.1em;
-}
-
-.role-bullets li {
+.experience-note {
   font-family: var(--font-serif);
-  font-size: 16px;
+  font-size: 19px;
   font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 0.09px;
-  color: var(--color-ink-soft);
-  margin-bottom: var(--space-sm);
+  line-height: 27.93px;
+  letter-spacing: 0.108px;
+  color: var(--color-ink);
+  max-width: 640px;
+  margin: 0 0 var(--space-2xl);
 }
 
 /* -------------------------------------------------------------------------
