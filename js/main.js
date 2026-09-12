@@ -115,7 +115,7 @@
     )
     .join("");
 
-  // ---- Projects & Travel (shared card renderer) ---------------------------
+  // ---- Projects (story card renderer) --------------------------------------
   function renderStoryCards(containerId, items, opts) {
     const container = $(containerId);
     if (!items || items.length === 0) {
@@ -156,13 +156,6 @@
     descField: "description",
     imageFolder: "projects",
     emptyText: "New projects coming soon."
-  });
-
-  renderStoryCards("travel-list", data.travel, {
-    titleField: "place",
-    descField: "note",
-    imageFolder: "travel",
-    emptyText: "New places coming soon."
   });
 
   // ---- Contact ----------------------------------------------------------

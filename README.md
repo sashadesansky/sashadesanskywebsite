@@ -1,9 +1,9 @@
 # sashadesansky.com
 
 A personal portfolio / brand site for Aleksandra "Sasha" Desansky — a running
-showcase of experience, AI projects, and travel. Styled after Wired
-magazine's editorial black-and-white design language: a display serif for
-headlines, a humanist serif for reading copy, a clean sans for structure.
+showcase of experience and AI projects. Styled after Wired magazine's
+editorial black-and-white design language: a display serif for headlines,
+a humanist serif for reading copy, a clean sans for structure.
 
 **No build step, no framework, no server required.** It's plain HTML, CSS,
 and JavaScript, so it can be hosted for free on GitHub Pages and edited
@@ -11,10 +11,9 @@ directly in a browser.
 
 ## Editing the content
 
-👉 If you just want to update your bio, add a project, or add a place
-you've traveled to, see **[CONTENT_GUIDE.md](CONTENT_GUIDE.md)** — it's
-written for a non-technical editor and only involves editing one file,
-`content.js`.
+👉 If you just want to update your bio or add a project, see
+**[CONTENT_GUIDE.md](CONTENT_GUIDE.md)** — it's written for a
+non-technical editor and only involves editing one file, `content.js`.
 
 ## File map
 
@@ -23,9 +22,8 @@ index.html          Page structure (rarely needs edits)
 content.js           <-- YOUR CONTENT LIVES HERE. Edit this file.
 css/style.css        Visual design (colors, fonts, spacing)
 js/main.js           Renders the page from content.js (rarely needs edits)
-images/              Your photos. Put project photos in images/projects/,
-                      travel photos in images/travel/, and a headshot
-                      directly in images/.
+images/              Your photos. Put project photos in images/projects/
+                      and a headshot directly in images/.
 CNAME                Tells GitHub Pages this site should answer to
                       sashadesansky.com
 ```
