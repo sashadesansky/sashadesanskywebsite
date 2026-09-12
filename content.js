@@ -113,16 +113,6 @@ window.SITE_CONTENT = {
   // entries should go at the top of the list.
   projects: [
     {
-      title: "AI Agents for Delivery Teams",
-      date: "2025",
-      tags: ["AI Agents", "Enterprise", "BCG"],
-      description: "Designed and rolled out AI agents that support 150+ person application-development and business-process teams — speeding up delivery and raising the quality of client-facing work across communications, coordination, and documentation.",
-      link: "",
-      linkLabel: "",
-      emoji: "🤖",
-      image: ""
-    },
-    {
       title: "Roxy's Churu Run",
       date: "2026",
       tags: ["Game", "Just for Fun"],
