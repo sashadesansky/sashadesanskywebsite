@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Roxy's Churu Run</title>
+<meta name="description" content="A little Mario-style platformer starring Roxy the Maine Coon — collect churus, dodge computer cords, across 3 levels.">
+
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="roxy-game.css">
+</head>
+<body>
+
+<header class="masthead-band">
+  <div class="masthead-inner">
+    <a href="../index.html#projects" class="nav-link">&larr; Back to site</a>
+    <a href="../index.html" class="wordmark">SASHA DESANSKY</a>
+    <span></span>
+  </div>
+</header>
+
+<main class="game-page">
+  <div class="game-page-inner">
+    <p class="hero-eyebrow">A Side Project</p>
+    <h1 class="game-title">Roxy's Churu Run</h1>
+    <p class="game-subtitle">A tiny platformer starring my Maine Coon, Roxy. Collect churus, dodge computer cords, and reach the yarn ball across 3 levels.</p>
+
+    <div class="game-frame">
+      <canvas id="game-canvas" width="960" height="540" aria-label="Roxy's Churu Run game canvas"></canvas>
+
+      <div id="overlay" class="game-overlay">
+        <div class="overlay-panel">
+          <img id="overlay-portrait" class="overlay-portrait" src="../images/roxy-portrait.jpg" alt="Roxy the Maine Coon">
+          <h2 id="overlay-title">Roxy's Churu Run</h2>
+          <p id="overlay-text">
+            Help Roxy collect churus and reach the yarn ball at the end of each level —
+            watch out for computer cords along the way!
+          </p>
+          <div class="overlay-controls">
+            <div><strong>Move</strong> — Arrow Keys or A / D</div>
+            <div><strong>Jump</strong> — Space, Up, or W</div>
+          </div>
+          <button class="button-primary" id="overlay-button">Start Game</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="touch-controls" id="touch-controls">
+      <div class="touch-side">
+        <button class="touch-btn" id="btn-left" aria-label="Move left">&larr;</button>
+        <button class="touch-btn" id="btn-right" aria-label="Move right">&rarr;</button>
+      </div>
+      <button class="touch-btn touch-btn-jump" id="btn-jump" aria-label="Jump">JUMP</button>
+    </div>
+
+    <p class="game-footnote">Best played on a keyboard, but touch controls work too.</p>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-wordmark">SASHA DESANSKY</div>
+    <ul class="footer-links">
+      <li><a href="../index.html#projects">Back to Projects</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="roxy-game.js"></script>
+</body>
+</html>
