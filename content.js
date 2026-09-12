@@ -59,9 +59,9 @@ window.SITE_CONTENT = {
   about: {
     heading: "About",
     paragraphs: [
-      "I'm a Principal at Boston Consulting Group, advising C-suite executives and senior technology leaders on technology strategy and transformation — AI, enterprise architecture, and organization design — across consumer, technology, and federal sectors.",
-      "Day to day, I oversee delivery teams of 70+ consultants and engineers spanning product development, data, architecture, change management, and operations, and I write and lead proposals for large-scale AI and technology transformation engagements. I also build AI agents that help teams of 150+ people work faster and better, which is a big part of why this site exists — I like keeping a public record of what I'm learning and building.",
-      "Before BCG, I was a systems engineer at Deloitte, modernizing legacy applications for public sector clients. I hold a B.S. and M.S. in Engineering from The George Washington University, and I'm always looking for the next interesting problem — technical or otherwise."
+      "I'm a Principal-level technology and AI strategy consultant, advising C-suite executives and senior technology leaders on AI strategy, enterprise architecture, and organization design — across consumer, technology, and federal sectors.",
+      "Day to day, I lead delivery teams of 70+ consultants and engineers across product development, data, architecture, change management, and operations, and I write and lead proposals for large-scale AI and technology transformation engagements. I also build AI agents that help teams of 150+ people work faster and better, which is a big part of why this site exists — I like keeping a public record of what I'm learning and building.",
+      "Earlier in my career, I worked as a systems engineer modernizing legacy applications for public sector clients. I hold a B.S. and M.S. in Engineering, and I'm always looking for the next interesting problem — technical or otherwise."
     ]
   },
 
