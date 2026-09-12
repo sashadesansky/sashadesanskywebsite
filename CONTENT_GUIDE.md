@@ -1,8 +1,8 @@
 # How to update your website (no coding required)
 
-Everything on your site — your bio, your jobs, your projects, your travel —
-lives in one file: **`content.js`**. You never need to touch any other file
-to add or change what shows up on the page.
+Everything on your site — your bio, your jobs, your projects — lives in one
+file: **`content.js`**. You never need to touch any other file to add or
+change what shows up on the page.
 
 There are two ways to edit it. Pick whichever feels easier.
 
@@ -63,25 +63,12 @@ Paste it at the **top** of the list (so newest shows first), then edit:
 **Don't forget the comma `,` after the closing `}`** if it's not the last
 project in the list.
 
-### Add a new place you've visited
-Same idea, in the `travel:` section:
-
-```js
-{
-  place: "Tokyo, Japan",
-  date: "2026",
-  note: "A short line about the trip or what stood out.",
-  emoji: "🇯🇵",
-  image: ""
-},
-```
-
 ### Add a photo
-1. On GitHub, open the `images/projects` or `images/travel` folder.
+1. On GitHub, open the `images/projects` folder.
 2. Click **Add file → Upload files** and drag your photo in.
 3. Keep the filename simple — lowercase, no spaces (use dashes instead),
-   e.g. `tokyo-skyline.jpg`.
-4. Back in `content.js`, set `image: "tokyo-skyline.jpg"` on that entry.
+   e.g. `my-project.jpg`.
+4. Back in `content.js`, set `image: "my-project.jpg"` on that entry.
 
 ### Add a headshot photo
 Upload your photo directly into the `images/` folder (not a subfolder),

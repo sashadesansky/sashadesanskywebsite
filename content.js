@@ -3,8 +3,8 @@
   YOUR CONTENT — this is the only file you need to touch to update the site.
   =========================================================================
 
-  Everything on sashadesansky.com — your bio, jobs, education, projects,
-  travel — lives in this one file. There is no code to write. You are just
+  Everything on sashadesansky.com — your bio, jobs, education, projects —
+  lives in this one file. There is no code to write. You are just
   editing text between quote marks.
 
   RULES OF THE ROAD (read this once):
@@ -12,7 +12,7 @@
     2. Keep every comma between items in a list. The last item in a list
        (right before a closing bracket "]" or brace "}") does NOT get a
        comma after it.
-    3. To add a new Project or a new Travel entry, copy an existing block
+    3. To add a new Project entry, copy an existing block
        (from the { to the matching }), paste it above or below, then edit
        the text inside. Don't forget the comma after the closing } if it's
        not the last one in the list.
@@ -20,8 +20,8 @@
        comma that follows it (or precedes it, if it was last).
     5. If the site stops loading after an edit, you likely deleted a comma,
        quote, or bracket by accident. Undo your last change and try again.
-    6. Photos: drop image files into the /images/projects or /images/travel
-       folder, then set "image" below to the filename, e.g. "seoul.jpg".
+    6. Photos: drop image files into the /images/projects folder, then
+       set "image" below to the filename, e.g. "my-project.jpg".
        If you leave "image" as "" (empty), a simple emoji icon is shown
        instead — totally fine to launch with.
 
@@ -59,9 +59,9 @@ window.SITE_CONTENT = {
   about: {
     heading: "About",
     paragraphs: [
-      "I'm a Principal at Boston Consulting Group, advising C-suite executives and senior technology leaders on technology strategy and transformation — AI, enterprise architecture, and organization design — across consumer, technology, and federal sectors.",
-      "Day to day, I oversee delivery teams of 70+ consultants and engineers spanning product development, data, architecture, change management, and operations, and I write and lead proposals for large-scale AI and technology transformation engagements. I also build AI agents that help teams of 150+ people work faster and better, which is a big part of why this site exists — I like keeping a public record of what I'm learning and building.",
-      "Before BCG, I was a systems engineer at Deloitte, modernizing legacy applications for public sector clients. I hold a B.S. and M.S. in Engineering from The George Washington University, and I'm always looking for the next interesting problem — technical or otherwise."
+      "I'm a Principal-level technology and AI strategy consultant, advising C-suite executives and senior technology leaders on AI strategy, enterprise architecture, and organization design — across consumer, technology, and federal sectors.",
+      "Day to day, I lead delivery teams of 70+ consultants and engineers across product development, data, architecture, change management, and operations, and I write and lead proposals for large-scale AI and technology transformation engagements. I also build AI agents that help teams of 150+ people work faster and better, which is a big part of why this site exists — I like keeping a public record of what I'm learning and building.",
+      "Earlier in my career, I worked as a systems engineer modernizing legacy applications for public sector clients. I hold a B.S. and M.S. in Engineering, and I'm always looking for the next interesting problem — technical or otherwise."
     ]
   },
 
@@ -194,25 +194,6 @@ window.SITE_CONTENT = {
       link: "",
       linkLabel: "View project",
       emoji: "✨",
-      image: ""
-    }
-  ],
-
-  // ---- Places / Travel ---------------------------------------------------
-  // Same idea as projects — one block per place, newest at the top.
-  travel: [
-    {
-      place: "Seoul, South Korea",
-      date: "",
-      note: "Studied as an engineering exchange student at Korea University — where a lot of my curiosity about how systems (and cities) fit together started.",
-      emoji: "🇰🇷",
-      image: ""
-    },
-    {
-      place: "Example trip — replace me",
-      date: "2026",
-      note: "This is a placeholder so you can see the shape of a travel entry. Replace it with a real place you've visited, or delete this block.",
-      emoji: "📍",
       image: ""
     }
   ],
