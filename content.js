@@ -65,77 +65,13 @@ window.SITE_CONTENT = {
     ]
   },
 
-  // ---- Experience --------------------------------------------------------
-  // One block per company. Each company can have multiple "roles" (for
-  // promotions within the same company), newest first.
-  experience: [
-    {
-      company: "Boston Consulting Group (BCG)",
-      totalTenure: "4 yrs 11 mos",
-      roles: [
-        {
-          title: "Principal",
-          employmentType: "Full-time",
-          dates: "Jul 2025 – Present",
-          duration: "1 yr 3 mos",
-          location: "",
-          bullets: [
-            "Advise C-suite executives and senior technology leaders on technology strategy and transformation efforts (AI, enterprise architecture, organization design, etc.) for clients across consumer, technology, and federal sectors",
-            "Oversee 70+ consultants and engineers across product development, requirements, PMO, data, architecture, change management, operations, release management, service desk, and strategic communications to achieve business or critical mission objectives",
-            "Develop AI agents that improve efficiency and effectiveness for teams of 150+ people across application development and business process operations, ultimately elevating output quality across client deliverables, communications, coordination, and achieving client outcomes",
-            "Own senior client relationships with C-suite and VP-level stakeholders, serving as trusted advisor translating technical AI/transformation work into business decisions",
-            "Write and lead proposals for $100M+ in AI and technology transformation work, owning solutioning, resourcing, and pricing to win new client engagements",
-            "Mentor junior teammates on both technical and client-facing skills"
-          ]
-        },
-        {
-          title: "Manager",
-          employmentType: "Full-time",
-          dates: "Jul 2023 – Jul 2025",
-          duration: "2 yrs 1 mo",
-          location: "Washington, District of Columbia, United States",
-          bullets: [
-            "Advised executive stakeholders on how AI, cloud architecture, and Digital Twin investments scale business problems, shaping technology strategy for 12 enterprise clients"
-          ]
-        },
-        {
-          title: "Senior Consultant",
-          employmentType: "Full-time",
-          dates: "Nov 2021 – Jul 2023",
-          duration: "1 yr 9 mos",
-          location: "",
-          bullets: [
-            "Developed strategic roadmaps, complex financial models, vendor comparisons, enterprise technology architectures, and organizational designs for executive-level audiences to support high-stakes decisions"
-          ]
-        }
-      ]
-    },
-    {
-      company: "Deloitte",
-      totalTenure: "2 yrs 5 mos",
-      roles: [
-        {
-          title: "Senior Consultant",
-          employmentType: "Full-time",
-          dates: "Jan 2021 – Nov 2021",
-          duration: "11 mos",
-          location: "",
-          bullets: [
-            "Led systems engineering teams to modernize legacy applications for public sector clients",
-            "Built and deployed custom Java/Spring Framework applications for public sector clients"
-          ]
-        },
-        {
-          title: "Consultant",
-          employmentType: "Full-time",
-          dates: "Jul 2019 – Jan 2021",
-          duration: "1 yr 7 mos",
-          location: "",
-          bullets: []
-        }
-      ]
-    }
-  ],
+  // ---- Experience ---------------------------------------------------------
+  // Instead of listing every job here, this points visitors to LinkedIn.
+  experience: {
+    heading: "Experience",
+    note: "For a detailed look at my professional experience and skills, check out my LinkedIn profile.",
+    buttonLabel: "View LinkedIn Profile"
+  },
 
   // ---- Education -----------------------------------------------------
   education: [
