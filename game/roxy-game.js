@@ -1,8 +1,9 @@
 /*
   Roxy's Churu Run — a small Mario-style platformer.
-  Pure canvas 2D + vanilla JS, no dependencies. Roxy is drawn from
-  images/roxy-sprite.jpg when it's available; until then (or if it fails
-  to load) a simple drawn cat is used instead, so the game always works.
+  Pure canvas 2D + vanilla JS, no dependencies. Roxy and the level-3
+  enemy are drawn from images/roxy-sprite.jpg and images/jake-sprite.jpg
+  when available; until then (or if either fails to load) a simple drawn
+  face is used instead, so the game always works.
 */
 
 (function () {
@@ -46,7 +47,7 @@
   let jakeImgReady = false;
   jakeImg.onload = () => { jakeImgReady = true; };
   jakeImg.onerror = () => { jakeImgReady = false; };
-  jakeImg.src = "../images/Jake.jpg";
+  jakeImg.src = "../images/jake-sprite.jpg";
 
   function drawFallbackFace(cx, cy, r, skinColor, angry) {
     ctx.fillStyle = skinColor;
@@ -182,17 +183,11 @@
     const headCX = ENEMY_W / 2;
     const headCY = y + headR * 0.85;
     if (jakeImgReady && jakeImg.naturalWidth) {
-      // center-cropped "cover" square so an arbitrary photo isn't squished
-      const iw = jakeImg.naturalWidth;
-      const ih = jakeImg.naturalHeight;
-      const side = Math.min(iw, ih);
-      const sx = (iw - side) / 2;
-      const sy = (ih - side) / 2;
       ctx.save();
       ctx.beginPath();
       ctx.arc(headCX, headCY, headR, 0, Math.PI * 2);
       ctx.clip();
-      ctx.drawImage(jakeImg, sx, sy, side, side, headCX - headR, headCY - headR, headR * 2, headR * 2);
+      ctx.drawImage(jakeImg, headCX - headR, headCY - headR, headR * 2, headR * 2);
       ctx.restore();
     } else {
       drawFallbackFace(headCX, headCY, headR, "#8b5e3c", true);
