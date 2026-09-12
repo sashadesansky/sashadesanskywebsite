@@ -24,6 +24,9 @@ css/style.css        Visual design (colors, fonts, spacing)
 js/main.js           Renders the page from content.js (rarely needs edits)
 images/              Your photos. Put project photos in images/projects/
                       and a headshot directly in images/.
+game/                A small playable game (Roxy's Churu Run), linked
+                      from the Projects section. Self-contained, no
+                      edits needed unless you want to tweak the game.
 CNAME                Tells GitHub Pages this site should answer to
                       sashadesansky.com
 ```

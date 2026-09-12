@@ -1,0 +1,180 @@
+/* =========================================================================
+   Roxy's Churu Run — game page styling
+   Reuses the site's design tokens (colors, fonts) from css/style.css.
+   ========================================================================= */
+
+.masthead-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+.masthead-inner .wordmark {
+  text-align: center;
+}
+
+.masthead-inner span {
+  justify-self: end;
+}
+
+.game-page {
+  padding: var(--space-3xl) var(--space-xl) var(--space-4xl);
+}
+
+.game-page-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.game-title {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 50.4px;
+  letter-spacing: -0.4px;
+  margin: var(--space-sm) 0 var(--space-lg);
+}
+
+.game-subtitle {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 26px;
+  color: var(--color-ink-soft);
+  max-width: 640px;
+  margin: 0 auto var(--space-2xl);
+}
+
+.game-frame {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  border: 2px solid var(--color-ink);
+  background: #cfe8f5;
+  line-height: 0;
+}
+
+#game-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  touch-action: none;
+}
+
+.game-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(20, 12, 30, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  overflow-y: auto;
+}
+
+.game-overlay[hidden] {
+  display: none;
+}
+
+.overlay-panel {
+  background: var(--color-canvas);
+  border: 2px solid var(--color-ink);
+  padding: var(--space-2xl);
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+}
+
+.overlay-panel h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  margin: 0 0 var(--space-md);
+}
+
+.overlay-panel p {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--color-ink-soft);
+  margin: 0 0 var(--space-lg);
+}
+
+.overlay-controls {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--color-ink);
+  background: var(--color-canvas-soft);
+  border: 1px solid var(--color-hairline);
+  padding: var(--space-md) var(--space-lg);
+  margin: 0 0 var(--space-xl);
+  text-align: left;
+}
+
+.overlay-panel .button-primary {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+.touch-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 960px;
+  margin: var(--space-lg) auto 0;
+  gap: var(--space-lg);
+}
+
+.touch-side {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.touch-btn {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 20px;
+  width: 56px;
+  height: 56px;
+  border: 2px solid var(--color-ink);
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  border-radius: var(--radius-none);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.touch-btn:active {
+  background: var(--color-ink);
+  color: var(--color-on-primary);
+}
+
+.touch-btn-jump {
+  width: 120px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.game-footnote {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--color-body);
+  margin-top: var(--space-lg);
+}
+
+@media (max-width: 767px) {
+  .game-title {
+    font-size: 34px;
+    line-height: 36px;
+  }
+
+  .touch-controls {
+    display: flex;
+  }
+}

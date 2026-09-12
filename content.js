@@ -123,13 +123,13 @@ window.SITE_CONTENT = {
       image: ""
     },
     {
-      title: "Example project — replace me",
+      title: "Roxy's Churu Run",
       date: "2026",
-      tags: ["Tag one", "Tag two"],
-      description: "This is a placeholder so you can see the shape of a project entry. Replace this title, description, and tags with your own project, or delete this whole block once you've added a real one.",
-      link: "",
-      linkLabel: "View project",
-      emoji: "✨",
+      tags: ["Game", "Just for Fun"],
+      description: "A little Mario-style platformer starring my Maine Coon, Roxy — collect churus, dodge computer cords, and reach the yarn ball across 3 levels. Playable right in your browser.",
+      link: "game/roxy-game.html",
+      linkLabel: "Play the Game",
+      emoji: "🐾",
       image: ""
     }
   ],
