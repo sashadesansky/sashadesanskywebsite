@@ -59,9 +59,8 @@ window.SITE_CONTENT = {
   about: {
     heading: "About",
     paragraphs: [
-      "I'm a Principal-level technology and AI strategy consultant, advising C-suite executives and senior technology leaders on AI strategy, enterprise architecture, and organization design — across consumer, technology, and federal sectors.",
-      "Day to day, I lead delivery teams of 70+ consultants and engineers across product development, data, architecture, change management, and operations, and I write and lead proposals for large-scale AI and technology transformation engagements. I also build AI agents that help teams of 150+ people work faster and better, which is a big part of why this site exists — I like keeping a public record of what I'm learning and building.",
-      "Earlier in my career, I worked as a systems engineer modernizing legacy applications for public sector clients. I hold a B.S. and M.S. in Engineering, and I'm always looking for the next interesting problem — technical or otherwise."
+      "Professionally, I'm a Principal-level technology and AI strategy consultant, advising C-suite executives on AI strategy, enterprise architecture, and organization design. I've led teams of 100+ people through large-scale technology transformation initiatives, including AI efforts, and I push my teams to break complex problems into manageable pieces and find where AI can give us meaningful time back. Having worked as a software engineer and now as a senior people leader, my sweet spot is the intersection of technology and how people actually use it to make the world better.",
+      "Personally, I'm a curious person who loves a good challenge. Whether it's traveling to the other side of the world, using new gadgets to optimize my daily routine, or picking up a new way of thinking about a problem, I'm always exploring."
     ]
   },
 
