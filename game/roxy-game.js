@@ -1,8 +1,9 @@
 /*
   Roxy's Churu Run — a small Mario-style platformer.
-  Pure canvas 2D + vanilla JS, no dependencies. Roxy is drawn from
-  images/roxy-sprite.jpg when it's available; until then (or if it fails
-  to load) a simple drawn cat is used instead, so the game always works.
+  Pure canvas 2D + vanilla JS, no dependencies. Roxy and the level-3
+  enemy are drawn from images/roxy-sprite.jpg and images/jake-sprite.jpg
+  when available; until then (or if either fails to load) a simple drawn
+  face is used instead, so the game always works.
 */
 
 (function () {
@@ -15,7 +16,9 @@
   const JUMP_VELOCITY = -12.2;
   const MOVE_SPEED = 4.2;
   const PLAYER_W = 46;
-  const PLAYER_H = 50;
+  const PLAYER_H = 58;
+  const ENEMY_W = 44;
+  const ENEMY_H = 46;
   const CHURU_RADIUS = 16;
   const TOTAL_LIVES = 3;
 
@@ -29,95 +32,168 @@
   canvas.height = CANVAS_H * dpr;
   ctx.scale(dpr, dpr);
 
-  // ---- Roxy sprite (with graceful fallback) --------------------------------
+  // ---- Sprites (with graceful fallback) ------------------------------------
   // roxy-sprite.jpg is a square face-crop of Roxy, drawn inside a circular
-  // "portrait" frame — matches the round avatar style used elsewhere on
-  // the site. If it's missing, a simple drawn cat fills the same frame.
+  // "head" on top of a drawn cat body. jake-image.jpg is Jake's photo, used
+  // the same way for the level-3 enemy. If either is missing, a simple
+  // drawn face fills the same circle, so the game always works.
   const roxyImg = new Image();
   let roxyImgReady = false;
   roxyImg.onload = () => { roxyImgReady = true; };
   roxyImg.onerror = () => { roxyImgReady = false; };
   roxyImg.src = "../images/roxy-sprite.jpg";
 
-  function drawFallbackCat(x, y, w, h, facing) {
-    ctx.save();
-    ctx.translate(x + w / 2, y + h / 2);
-    ctx.scale(facing, 1);
-    ctx.translate(-w / 2, -h / 2);
-    // body
-    ctx.fillStyle = "#b06a3a";
+  const jakeImg = new Image();
+  let jakeImgReady = false;
+  jakeImg.onload = () => { jakeImgReady = true; };
+  jakeImg.onerror = () => { jakeImgReady = false; };
+  jakeImg.src = "../images/jake-sprite.jpg";
+
+  function drawFallbackFace(cx, cy, r, skinColor, angry) {
+    ctx.fillStyle = skinColor;
     ctx.beginPath();
-    ctx.ellipse(w / 2, h * 0.62, w * 0.42, h * 0.36, 0, 0, Math.PI * 2);
-    ctx.fill();
-    // head
-    ctx.beginPath();
-    ctx.ellipse(w * 0.62, h * 0.32, w * 0.32, h * 0.28, 0, 0, Math.PI * 2);
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
     ctx.fill();
     // ears
     ctx.beginPath();
-    ctx.moveTo(w * 0.42, h * 0.14);
-    ctx.lineTo(w * 0.5, h * -0.08);
-    ctx.lineTo(w * 0.62, h * 0.14);
+    ctx.moveTo(cx - r * 0.55, cy - r * 0.55);
+    ctx.lineTo(cx - r * 0.85, cy - r * 1.35);
+    ctx.lineTo(cx - r * 0.05, cy - r * 0.75);
     ctx.fill();
     ctx.beginPath();
-    ctx.moveTo(w * 0.72, h * 0.1);
-    ctx.lineTo(w * 0.86, h * -0.1);
-    ctx.lineTo(w * 0.92, h * 0.16);
+    ctx.moveTo(cx + r * 0.55, cy - r * 0.55);
+    ctx.lineTo(cx + r * 0.85, cy - r * 1.35);
+    ctx.lineTo(cx + r * 0.05, cy - r * 0.75);
     ctx.fill();
-    // face stripe
-    ctx.fillStyle = "#f3e3d3";
-    ctx.beginPath();
-    ctx.ellipse(w * 0.68, h * 0.38, w * 0.16, h * 0.14, 0, 0, Math.PI * 2);
-    ctx.fill();
-    // eye
+    if (angry) {
+      // angry eyebrows
+      ctx.strokeStyle = "#2b1b10";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(cx - r * 0.5, cy - r * 0.1);
+      ctx.lineTo(cx - r * 0.08, cy - r * 0.32);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(cx + r * 0.5, cy - r * 0.1);
+      ctx.lineTo(cx + r * 0.08, cy - r * 0.32);
+      ctx.stroke();
+    }
+    // eyes
     ctx.fillStyle = "#1a1a1a";
     ctx.beginPath();
-    ctx.arc(w * 0.74, h * 0.3, w * 0.045, 0, Math.PI * 2);
+    ctx.arc(cx - r * 0.3, cy, r * 0.09, 0, Math.PI * 2);
     ctx.fill();
-    // tail
-    ctx.strokeStyle = "#b06a3a";
-    ctx.lineWidth = w * 0.16;
+    ctx.beginPath();
+    ctx.arc(cx + r * 0.3, cy, r * 0.09, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Draws a simple cartoon cat body (tail + legs + torso) in the local,
+  // already facing-flipped coordinate space spanning 0..w horizontally.
+  function drawCatBody(w, y, h, furColor, furDark) {
+    const cx = w / 2;
+    const bodyTop = y + h * 0.48;
+    const bodyH = h - h * 0.48;
+    const bodyW = w * 0.86;
+    const bodyCY = bodyTop + bodyH * 0.5;
+
+    // tail trails behind (negative-x side in local space)
+    ctx.strokeStyle = furColor;
+    ctx.lineWidth = Math.max(3, w * 0.14);
     ctx.lineCap = "round";
     ctx.beginPath();
-    ctx.moveTo(w * 0.12, h * 0.62);
-    ctx.quadraticCurveTo(-w * 0.25, h * 0.5, -w * 0.1, h * 0.1);
+    ctx.moveTo(cx - bodyW * 0.32, bodyCY - bodyH * 0.05);
+    ctx.quadraticCurveTo(cx - w * 0.55, bodyCY - h * 0.05, cx - w * 0.35, bodyTop - h * 0.1);
     ctx.stroke();
-    ctx.restore();
+
+    // legs/paws
+    ctx.fillStyle = furDark;
+    const legY = y + h - h * 0.04;
+    ctx.beginPath();
+    ctx.ellipse(cx - bodyW * 0.2, legY, w * 0.13, h * 0.06, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(cx + bodyW * 0.2, legY, w * 0.13, h * 0.06, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // body
+    ctx.fillStyle = furColor;
+    ctx.beginPath();
+    ctx.ellipse(cx, bodyCY, bodyW / 2, bodyH * 0.52, 0, 0, Math.PI * 2);
+    ctx.fill();
   }
 
   function drawRoxy(x, y, w, h, facing) {
-    const cx = x + w / 2;
-    const cy = y + h / 2;
-    const r = Math.min(w, h) / 2;
-
     ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.clip();
+    ctx.translate(x + w / 2, 0);
+    ctx.scale(facing, 1);
+    ctx.translate(-w / 2, 0);
 
+    drawCatBody(w, y, h, "#b8763f", "#7a4b25");
+
+    const headR = w * 0.52;
+    const headCX = w / 2;
+    const headCY = y + headR * 0.95;
     if (roxyImgReady && roxyImg.naturalWidth) {
-      const size = r * 2;
       ctx.save();
-      if (facing === -1) {
-        ctx.translate(cx, 0);
-        ctx.scale(-1, 1);
-        ctx.drawImage(roxyImg, -size / 2, cy - r, size, size);
-      } else {
-        ctx.drawImage(roxyImg, cx - r, cy - r, size, size);
-      }
+      ctx.beginPath();
+      ctx.arc(headCX, headCY, headR, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.drawImage(roxyImg, headCX - headR, headCY - headR, headR * 2, headR * 2);
       ctx.restore();
     } else {
-      ctx.fillStyle = "#f3e3d3";
-      ctx.fillRect(x, y, w, h);
-      drawFallbackCat(x, y, w, h, facing);
+      drawFallbackFace(headCX, headCY, headR, "#c78349", false);
     }
-    ctx.restore();
 
+    ctx.restore();
+  }
+
+  // ---- Level-3 enemy ("Jake") ---------------------------------------------
+  function drawEnemyBody(w, y, h) {
+    const cx = w / 2;
+    const bodyTop = y + h * 0.42;
+    const bodyH = h - h * 0.42;
+    ctx.fillStyle = "#6b4226";
     ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = "#1a1a1a";
-    ctx.stroke();
+    ctx.ellipse(cx, bodyTop + bodyH * 0.55, w * 0.46, bodyH * 0.58, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "#3a2415";
+    const legY = y + h - h * 0.03;
+    ctx.beginPath();
+    ctx.ellipse(cx - w * 0.24, legY, w * 0.17, h * 0.08, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(cx + w * 0.24, legY, w * 0.17, h * 0.08, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawEnemy(enemy) {
+    const x = enemy.x - camera;
+    if (x + ENEMY_W < 0 || x > CANVAS_W) return;
+    const y = GROUND_Y - ENEMY_H;
+
+    ctx.save();
+    ctx.translate(x + ENEMY_W / 2, 0);
+    ctx.scale(enemy.dir, 1);
+    ctx.translate(-ENEMY_W / 2, 0);
+
+    drawEnemyBody(ENEMY_W, y, ENEMY_H);
+
+    const headR = ENEMY_W * 0.44;
+    const headCX = ENEMY_W / 2;
+    const headCY = y + headR * 0.85;
+    if (jakeImgReady && jakeImg.naturalWidth) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(headCX, headCY, headR, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.drawImage(jakeImg, headCX - headR, headCY - headR, headR * 2, headR * 2);
+      ctx.restore();
+    } else {
+      drawFallbackFace(headCX, headCY, headR, "#8b5e3c", true);
+    }
+
+    ctx.restore();
   }
 
   // ---- Level data -----------------------------------------------------
@@ -125,36 +201,32 @@
   // scrolled horizontally by a camera as Roxy moves through the level.
   function buildLevels() {
     return [
-      // ---------------- Level 1 ----------------
+      // ---------------- Level 1 — churu collecting, no hazards ----------------
       {
         width: 2200,
+        theme: "sky",
         ground: [{ x: 0, width: 2200 }],
         platforms: [
           { x: 520, y: 372, width: 130, height: 20 },
           { x: 1080, y: 340, width: 150, height: 20 },
           { x: 1650, y: 380, width: 140, height: 20 }
         ],
-        cords: [
-          { x: 320, width: 60 },
-          { x: 560, width: 60 },
-          { x: 800, width: 70 },
-          { x: 1040, width: 60 },
-          { x: 1300, width: 70 },
-          { x: 1560, width: 60 },
-          { x: 1820, width: 70 }
-        ],
+        cords: [],
         churus: [
           { x: 260, y: 430 }, { x: 420, y: 430 }, { x: 585, y: 330 },
-          { x: 690, y: 430 }, { x: 900, y: 430 }, { x: 1145, y: 298 },
-          { x: 1400, y: 430 }, { x: 1500, y: 430 }, { x: 1715, y: 338 },
-          { x: 1950, y: 430 }, { x: 2050, y: 430 }
+          { x: 690, y: 430 }, { x: 800, y: 430 }, { x: 900, y: 430 },
+          { x: 1040, y: 430 }, { x: 1145, y: 298 }, { x: 1300, y: 430 },
+          { x: 1400, y: 430 }, { x: 1500, y: 430 }, { x: 1560, y: 430 },
+          { x: 1715, y: 338 }, { x: 1820, y: 430 }, { x: 1950, y: 430 },
+          { x: 2050, y: 430 }
         ],
         goal: { x: 2130, y: GROUND_Y }
       },
 
-      // ---------------- Level 2 ----------------
+      // ---------------- Level 2 — cords introduced, inside the house ----------------
       {
         width: 2800,
+        theme: "house",
         ground: [
           { x: 0, width: 900 },
           { x: 1000, width: 600 },
@@ -184,14 +256,21 @@
         goal: { x: 2730, y: GROUND_Y }
       },
 
-      // ---------------- Level 3 ----------------
+      // ---------------- Level 3 — cords + a Jake enemy to avoid or stomp ----------------
       {
         width: 3400,
+        theme: "house",
         ground: [
           { x: 0, width: 700 },
           { x: 800, width: 500 },
           { x: 1400, width: 600 },
           { x: 2100, width: 1300 }
+        ],
+        enemies: [
+          { min: 500, max: 640, speed: 1.3 },
+          { min: 1520, max: 1660, speed: 1.5 },
+          { min: 2320, max: 2480, speed: 1.4 },
+          { min: 3010, max: 3140, speed: 1.6 }
         ],
         platforms: [
           { x: 420, y: 370, width: 110, height: 20 },
@@ -251,7 +330,15 @@
       height: 22
     }));
     const churus = level.churus.map((c) => ({ x: c.x, y: c.y, collected: false }));
-    return { ...level, surfaces, cords, churus };
+    const enemies = (level.enemies || []).map((e) => ({
+      x: e.min,
+      min: e.min,
+      max: e.max,
+      speed: e.speed || 1.4,
+      dir: 1,
+      defeated: false
+    }));
+    return { ...level, surfaces, cords, churus, enemies };
   }
 
   // ---- Game state -----------------------------------------------------
@@ -393,6 +480,11 @@
     } else {
       resetPlayerToLevelStart();
       current.churus.forEach((c) => (c.collected = false));
+      current.enemies.forEach((e) => {
+        e.defeated = false;
+        e.x = e.min;
+        e.dir = 1;
+      });
       score = Math.max(0, score - churusCollectedScore());
     }
   }
@@ -459,6 +551,37 @@
       }
     }
 
+    // Enemy patrol + collision (stomp from above defeats them, side contact costs a life)
+    current.enemies.forEach((e) => {
+      if (e.defeated) return;
+      e.x += e.dir * e.speed;
+      if (e.x < e.min) {
+        e.x = e.min;
+        e.dir = 1;
+      }
+      if (e.x > e.max) {
+        e.x = e.max;
+        e.dir = -1;
+      }
+    });
+    const enemyTop = GROUND_Y - ENEMY_H;
+    for (const e of current.enemies) {
+      if (e.defeated) continue;
+      const enemyBox = { x: e.x + 6, y: enemyTop + 6, width: ENEMY_W - 12, height: ENEMY_H - 10 };
+      const playerFull = { x: player.x, y: player.y, width: PLAYER_W, height: PLAYER_H };
+      if (rectsOverlap(playerFull, enemyBox)) {
+        const playerBottomBeforeGravity = player.y + PLAYER_H - player.vy;
+        if (player.vy > 0 && playerBottomBeforeGravity <= enemyTop + 12) {
+          e.defeated = true;
+          player.vy = JUMP_VELOCITY * 0.55;
+          score += 20;
+        } else {
+          loseLife();
+          return;
+        }
+      }
+    }
+
     // Churu collection
     current.churus.forEach((c) => {
       if (c.collected) return;
@@ -495,7 +618,7 @@
   }
 
   // ---- Drawing ------------------------------------------------------------
-  function drawBackground() {
+  function drawSkyBackground() {
     const grad = ctx.createLinearGradient(0, 0, 0, CANVAS_H);
     grad.addColorStop(0, "#cfe8f5");
     grad.addColorStop(1, "#f5f0fa");
@@ -512,15 +635,87 @@
     }
   }
 
+  function drawWindow(x, y, w, h) {
+    if (x + w < 0 || x > CANVAS_W) return;
+    ctx.fillStyle = "#7c5a37";
+    ctx.fillRect(x - 6, y - 6, w + 12, h + 12);
+    ctx.fillStyle = "#bfe3f2";
+    ctx.fillRect(x, y, w, h);
+    ctx.strokeStyle = "#7c5a37";
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(x + w / 2, y);
+    ctx.lineTo(x + w / 2, y + h);
+    ctx.moveTo(x, y + h / 2);
+    ctx.lineTo(x + w, y + h / 2);
+    ctx.stroke();
+  }
+
+  function drawOutlet(x, y) {
+    if (x < -40 || x > CANVAS_W + 40) return;
+    ctx.fillStyle = "#e9e2d6";
+    ctx.beginPath();
+    ctx.roundRect(x - 14, y -20, 28, 40, 4);
+    ctx.fill();
+    ctx.strokeStyle = "#a89f8f";
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.fillStyle = "#333333";
+    ctx.fillRect(x - 6, y -10, 3, 8);
+    ctx.fillRect(x + 3, y -10, 3, 8);
+    ctx.beginPath();
+    ctx.arc(x, y + 6, 3, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawHouseBackground() {
+    ctx.fillStyle = "#f1e3cf";
+    ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+    // baseboard strip near the floor
+    ctx.fillStyle = "#e3cca4";
+    ctx.fillRect(0, GROUND_Y - 36, CANVAS_W, 36);
+
+    for (let i = 0; i < 6; i++) {
+      const wx = (i * 380 - camera * 0.4) % (CANVAS_W + 500) - 250;
+      drawWindow(wx, 60, 120, 150);
+    }
+    for (let i = 0; i < 9; i++) {
+      const ox = (i * 300 - camera * 0.7) % (CANVAS_W + 400) - 200;
+      drawOutlet(ox, GROUND_Y - 65);
+    }
+  }
+
+  function drawBackground() {
+    if (current.theme === "house") {
+      drawHouseBackground();
+    } else {
+      drawSkyBackground();
+    }
+  }
+
   function drawSurfaces() {
+    const isHouse = current.theme === "house";
+    const groundColor = isHouse ? "#a9784a" : "#caa06b";
+    const groundEdge = isHouse ? "#8a5f38" : "#a97e4c";
     current.surfaces.forEach((s) => {
       const x = s.x - camera;
       if (x + s.width < 0 || x > CANVAS_W) return;
       if (s.isGround) {
-        ctx.fillStyle = "#caa06b";
+        ctx.fillStyle = groundColor;
         ctx.fillRect(x, s.y, s.width, Math.min(s.height, CANVAS_H - s.y));
-        ctx.fillStyle = "#a97e4c";
+        ctx.fillStyle = groundEdge;
         ctx.fillRect(x, s.y, s.width, 8);
+        if (isHouse) {
+          // plank lines
+          ctx.strokeStyle = "rgba(0,0,0,0.12)";
+          ctx.lineWidth = 1;
+          for (let px = 40; px < s.width; px += 60) {
+            ctx.beginPath();
+            ctx.moveTo(x + px, s.y + 8);
+            ctx.lineTo(x + px, Math.min(s.y + s.height, CANVAS_H));
+            ctx.stroke();
+          }
+        }
       } else {
         ctx.fillStyle = "#8f6b4a";
         ctx.fillRect(x, s.y, s.width, s.height);
@@ -629,6 +824,9 @@
     drawBackground();
     drawSurfaces();
     current.cords.forEach(drawCord);
+    current.enemies.forEach((e) => {
+      if (!e.defeated) drawEnemy(e);
+    });
     current.churus.forEach(drawChuru);
     drawGoal();
     drawPlayer();
@@ -655,7 +853,9 @@
       playerY: player.y,
       onGround: player.onGround,
       churusCollected: current.churus.filter((c) => c.collected).length,
-      churuTotal: churuTotalThisLevel
+      churuTotal: churuTotalThisLevel,
+      enemiesDefeated: current.enemies.filter((e) => e.defeated).length,
+      enemyCount: current.enemies.length
     }),
     teleportNearGoal: () => {
       player.x = current.goal.x - PLAYER_W - 4;
@@ -673,6 +873,18 @@
       player.x = churu.x - PLAYER_W / 2;
       player.y = churu.y - PLAYER_H / 2;
       player.vy = 0;
+    },
+    teleportBesideEnemy: (i) => {
+      const e = current.enemies[i];
+      player.x = e.x - PLAYER_W - 2;
+      player.y = GROUND_Y - PLAYER_H;
+      player.vy = 0;
+    },
+    teleportAboveEnemy: (i) => {
+      const e = current.enemies[i];
+      player.x = e.x;
+      player.y = GROUND_Y - ENEMY_H - PLAYER_H;
+      player.vy = 5;
     }
   };
 })();
