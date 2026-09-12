@@ -45,14 +45,14 @@ window.SITE_CONTENT = {
     // Optional: put a photo file in /images (e.g. "headshot.jpg") and set
     // it here to use a real photo instead of the initials mark. Leave ""
     // to keep the initials mark.
-    photo: ""
+    photo: "headshot.jpg"
   },
 
   // ---- Hero (top of homepage) --------------------------------------------
   hero: {
     eyebrow: "Technology Strategy · AI Transformation · Trusted Advisor",
     headline: "Aleksandra “Sasha” Desansky",
-    subhead: "Principal at Boston Consulting Group, where I help C-suite leaders turn AI and technology strategy into results. This site is my running record of the AI projects I'm building, the places I'm visiting, and everything else worth showcasing along the way."
+    subhead: "Principal at Boston Consulting Group, where I help C-suite leaders turn AI and technology strategy into results. This site is my running record of the AI projects I'm building and everything else worth showcasing along the way."
   },
 
   // ---- About ---------------------------------------------------------
