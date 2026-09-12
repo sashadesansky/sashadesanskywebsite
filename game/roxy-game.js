@@ -1,8 +1,8 @@
 /*
   Roxy's Churu Run — a small Mario-style platformer.
   Pure canvas 2D + vanilla JS, no dependencies. Roxy is drawn from
-  images/Roxy.png when it's available; until then (or if it fails to
-  load) a simple drawn cat is used instead, so the game always works.
+  images/roxy-sprite.jpg when it's available; until then (or if it fails
+  to load) a simple drawn cat is used instead, so the game always works.
 */
 
 (function () {
@@ -22,12 +22,22 @@
   const canvas = document.getElementById("game-canvas");
   const ctx = canvas.getContext("2d");
 
+  // Render at device pixel ratio for a crisp image on retina screens,
+  // while all game/draw code below keeps working in 960x540 units.
+  const dpr = Math.min(window.devicePixelRatio || 1, 3);
+  canvas.width = CANVAS_W * dpr;
+  canvas.height = CANVAS_H * dpr;
+  ctx.scale(dpr, dpr);
+
   // ---- Roxy sprite (with graceful fallback) --------------------------------
+  // roxy-sprite.jpg is a square face-crop of Roxy, drawn inside a circular
+  // "portrait" frame — matches the round avatar style used elsewhere on
+  // the site. If it's missing, a simple drawn cat fills the same frame.
   const roxyImg = new Image();
   let roxyImgReady = false;
   roxyImg.onload = () => { roxyImgReady = true; };
   roxyImg.onerror = () => { roxyImgReady = false; };
-  roxyImg.src = "../images/Roxy.png";
+  roxyImg.src = "../images/roxy-sprite.jpg";
 
   function drawFallbackCat(x, y, w, h, facing) {
     ctx.save();
@@ -76,23 +86,38 @@
   }
 
   function drawRoxy(x, y, w, h, facing) {
+    const cx = x + w / 2;
+    const cy = y + h / 2;
+    const r = Math.min(w, h) / 2;
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.clip();
+
     if (roxyImgReady && roxyImg.naturalWidth) {
-      const aspect = roxyImg.naturalWidth / roxyImg.naturalHeight;
-      const drawH = h;
-      const drawW = h * aspect;
-      const offsetX = x + (w - drawW) / 2;
+      const size = r * 2;
       ctx.save();
       if (facing === -1) {
-        ctx.translate(offsetX + drawW / 2, 0);
+        ctx.translate(cx, 0);
         ctx.scale(-1, 1);
-        ctx.drawImage(roxyImg, -drawW / 2, y, drawW, drawH);
+        ctx.drawImage(roxyImg, -size / 2, cy - r, size, size);
       } else {
-        ctx.drawImage(roxyImg, offsetX, y, drawW, drawH);
+        ctx.drawImage(roxyImg, cx - r, cy - r, size, size);
       }
       ctx.restore();
     } else {
+      ctx.fillStyle = "#f3e3d3";
+      ctx.fillRect(x, y, w, h);
       drawFallbackCat(x, y, w, h, facing);
     }
+    ctx.restore();
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "#1a1a1a";
+    ctx.stroke();
   }
 
   // ---- Level data -----------------------------------------------------
@@ -317,12 +342,14 @@
   const overlayButton = document.getElementById("overlay-button");
 
   const overlayControls = document.querySelector(".overlay-controls");
+  const overlayPortrait = document.getElementById("overlay-portrait");
 
   function showOverlay(title, text, buttonLabel, showControls) {
     overlayTitle.textContent = title;
     overlayText.textContent = text;
     overlayButton.textContent = buttonLabel;
     overlayControls.hidden = !showControls;
+    overlayPortrait.hidden = !showControls;
     overlay.hidden = false;
   }
   function hideOverlay() {

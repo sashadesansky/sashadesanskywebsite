@@ -58,7 +58,6 @@
   display: block;
   width: 100%;
   height: auto;
-  image-rendering: pixelated;
   touch-action: none;
 }
 
@@ -85,6 +84,20 @@
   max-width: 460px;
   width: 100%;
   text-align: center;
+}
+
+.overlay-portrait {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  object-position: center 25%;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-ink);
+  margin: 0 auto var(--space-lg);
+}
+
+.overlay-portrait[hidden] {
+  display: none;
 }
 
 .overlay-panel h2 {
