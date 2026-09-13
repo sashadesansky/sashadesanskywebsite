@@ -64,7 +64,7 @@ window.SITE_CONTENT = {
 
   // ---- About ---------------------------------------------------------
   about: {
-    heading: "About",
+    heading: "A quick background...",
     paragraphs: [
       "Professionally, I'm a Principal-level technology and AI strategy consultant, advising C-suite executives on AI strategy, enterprise architecture, and organization design. I've led teams of 100+ people through large-scale technology transformation initiatives, including AI efforts, and I push my teams to break complex problems into manageable pieces and find where AI can give us meaningful time back. Having worked as a software engineer and now as a senior people leader, my sweet spot is the intersection of technology and how people actually use it to make the world better.",
       "Personally, I'm a curious person who loves a good challenge. Whether it's traveling to the other side of the world, using new gadgets to optimize my daily routine, or picking up a new way of thinking about a problem, I'm always exploring."
@@ -75,44 +75,9 @@ window.SITE_CONTENT = {
   // Instead of listing every job here, this points visitors to LinkedIn.
   experience: {
     heading: "Experience",
-    note: "For a detailed look at my professional experience and skills, check out my LinkedIn profile.",
+    note: "Check out my LinkedIn profile for a detailed look at my professional experience as a technologist, academic background as an engineer, professional certifications, and network",
     buttonLabel: "View LinkedIn Profile"
   },
-
-  // ---- Education -----------------------------------------------------
-  education: [
-    {
-      school: "The George Washington University — School of Engineering & Applied Science",
-      degree: "Master of Science (M.S.), Systems Engineering",
-      activities: "Academic focus on engineering management."
-    },
-    {
-      school: "The George Washington University — School of Engineering & Applied Science",
-      degree: "Bachelor of Science (B.S.), Biomedical/Medical Engineering",
-      activities: "Biomedical Engineering Society"
-    },
-    {
-      school: "Korea University",
-      degree: "Engineering Exchange Student, Biomedical/Medical Engineering",
-      activities: "Engineering Exchange Student"
-    }
-  ],
-
-  // ---- Licenses & Certifications ---------------------------------------
-  certifications: [
-    {
-      name: "Microsoft Certified: Azure AI Fundamentals",
-      issuer: "Microsoft",
-      issued: "Issued Sep 2026",
-      credentialId: "546DBM-B01C5F"
-    },
-    {
-      name: "CompTIA Security+",
-      issuer: "CompTIA",
-      issued: "Issued May 2024",
-      credentialId: "COMP001021839947"
-    }
-  ],
 
   // ---- AI Project Portfolio / Playground ---------------------------------
   // Add a new block any time you try something worth showcasing. Newest

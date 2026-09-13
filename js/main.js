@@ -59,34 +59,6 @@
   $("experience-linkedin").textContent = data.experience.buttonLabel || "View LinkedIn Profile";
   $("experience-linkedin").href = data.site.linkedin || "#";
 
-  // ---- Education ------------------------------------------------------
-  const eduList = $("education-list");
-  eduList.innerHTML = (data.education || [])
-    .map(
-      (e) => `
-      <div class="info-card">
-        <div class="info-card-title">${escapeHTML(e.school)}</div>
-        <div class="info-card-sub">${escapeHTML(e.degree)}</div>
-        ${e.activities ? `<div class="info-card-meta">${escapeHTML(e.activities)}</div>` : ""}
-      </div>
-    `
-    )
-    .join("");
-
-  // ---- Certifications -----------------------------------------------
-  const certList = $("certifications-list");
-  certList.innerHTML = (data.certifications || [])
-    .map(
-      (c) => `
-      <div class="info-card">
-        <div class="info-card-title">${escapeHTML(c.name)}</div>
-        <div class="info-card-sub">${escapeHTML(c.issuer)}</div>
-        <div class="info-card-meta">${escapeHTML(c.issued)}${c.credentialId ? " · ID " + escapeHTML(c.credentialId) : ""}</div>
-      </div>
-    `
-    )
-    .join("");
-
   // ---- Projects (story card renderer) --------------------------------------
   function renderStoryCards(containerId, items, opts) {
     const container = $(containerId);
