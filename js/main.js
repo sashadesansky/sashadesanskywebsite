@@ -134,10 +134,13 @@
   });
 
   // ---- Contact ----------------------------------------------------------
+  // Rebuilt from two parts at runtime rather than read as one plain string
+  // (see the comment on emailUser/emailDomain in content.js).
+  const siteEmail = `${data.site.emailUser}@${data.site.emailDomain}`;
   $("contact-detail").textContent = `Based in ${data.site.location || "the world"}. Reach out about AI transformation work, collaboration, or just to say hi.`;
-  $("contact-email").href = mailto(data.site.email, "Hello from your website");
+  $("contact-email").href = mailto(siteEmail, "Hello from your website");
   $("contact-linkedin").href = data.site.linkedin || "#";
-  $("footer-email").href = mailto(data.site.email);
+  $("footer-email").href = mailto(siteEmail);
   $("footer-note").textContent = (data.footer && data.footer.note) || "";
 
   // ---- Mobile nav toggle --------------------------------------------------

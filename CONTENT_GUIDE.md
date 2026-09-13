@@ -88,8 +88,12 @@ in `content.js` and edit `heading`, `note`, or `buttonLabel` to change that
 wording.
 
 ### Update your email or LinkedIn link
-Find the `site:` section at the top of `content.js` and edit `email` and
-`linkedin`.
+Find the `site:` section at the top of `content.js`. Your email is split
+into two fields to keep it out of the page's source as a scrapeable
+address — edit `emailUser` (the part before `@`) and `emailDomain` (the
+part after) separately, e.g. `emailUser: "jane"` and
+`emailDomain: "gmail.com"` for jane@gmail.com. Edit `linkedin` the same
+way as any other field.
 
 ---
 
