@@ -51,7 +51,7 @@ window.SITE_CONTENT = {
   // ---- Hero (top of homepage) --------------------------------------------
   hero: {
     eyebrow: "Technology Strategy · AI Transformation · Trusted Advisor",
-    headline: "Aleksandra “Sasha” Desansky",
+    headline: "Welcome to Sasha's project portfolio!",
     subhead: "I help business leaders and operators make AI and technology visions into tangible artifacts that achieve results. This site showcases different projects I am building as I continuously grow my AI skillset."
   },
 
