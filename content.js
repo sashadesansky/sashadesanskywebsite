@@ -75,7 +75,7 @@ window.SITE_CONTENT = {
   // Instead of listing every job here, this points visitors to LinkedIn.
   experience: {
     heading: "Experience",
-    note: "Check out my LinkedIn profile for a detailed look at my professional experience as a technologist, academic background as an engineer, professional certifications, and network",
+    note: "For a detailed look at my professional experience as a technology leader, academic background as an engineer, professional certifications, and network, check out my LinkedIn profile",
     buttonLabel: "View LinkedIn Profile"
   },
 
