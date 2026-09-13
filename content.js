@@ -115,9 +115,10 @@ window.SITE_CONTENT = {
       title: "Roxy's Churu Run",
       date: "2026",
       tags: ["Game", "Just for Fun"],
-      description: "A little Mario-style platformer starring my Maine Coon, Roxy — collect churus, dodge computer cords, and reach the yarn ball across 3 levels. Playable right in your browser.",
+      description: "A little Mario-style platformer starring my Maine Coon, Roxy — collect churus, dodge computer cords, and reach the yarn ball across 3 levels. Play it right here!",
+      embed: "game/roxy-game-embed.html",
       link: "game/roxy-game.html",
-      linkLabel: "Play the Game",
+      linkLabel: "Open Full Screen",
       emoji: "🐾",
       image: ""
     }

@@ -97,7 +97,10 @@
     container.innerHTML = items
       .map((item) => {
         const title = escapeHTML(item[opts.titleField]);
-        const media = item.image
+        const isEmbed = item.embed && item.embed.trim();
+        const media = isEmbed
+          ? `<iframe src="${escapeHTML(item.embed)}" title="${title}" loading="lazy" allow="fullscreen"></iframe>`
+          : item.image
           ? `<img src="images/${opts.imageFolder}/${escapeHTML(item.image)}" alt="${title}">`
           : escapeHTML(item.emoji || "");
         const tags = (item.tags || []).map((t) => `<span class="tag">${escapeHTML(t)}</span>`).join("");
@@ -109,7 +112,7 @@
 
         return `
           <div class="story-card">
-            <div class="story-card-media">${media}</div>
+            <div class="story-card-media${isEmbed ? " story-card-media-embed" : ""}">${media}</div>
             <div class="story-card-body">
               ${eyebrow}
               <h3 class="story-card-title">${title}</h3>
