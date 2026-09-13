@@ -1,7 +1,6 @@
-# sashadesansky.com
+# sdweb
 
-A personal portfolio / brand site for Aleksandra "Sasha" Desansky — a running
-showcase of experience and AI projects. Styled after Wired magazine's
+Test website running showcase of experience and AI projects. Styled after Wired magazine's
 editorial black-and-white design language: a display serif for headlines,
 a humanist serif for reading copy, a clean sans for structure.
 
