@@ -37,7 +37,14 @@ window.SITE_CONTENT = {
     name: "Sasha Desansky",
     // Short line shown in the browser tab and search results.
     tagline: "Technology strategy, AI transformation, and a running log of what I'm building and exploring.",
-    email: "sashadesansky@gmail.com",
+    // Your email, split into two parts so it doesn't sit in the page's
+    // source as a plain "name@domain.com" string (that's what most spam
+    // bots scan static sites for). The site still joins these back
+    // together to build a real, working "Email me" link — this just
+    // keeps it out of plain sight in the source files. Edit each part
+    // separately if your email ever changes.
+    emailUser: "sashadesansky",
+    emailDomain: "gmail.com",
     linkedin: "https://www.linkedin.com/in/aleksandradesansky/",
     location: "Washington, D.C.",
     // Initials shown in the round avatar mark if you don't add a photo.
