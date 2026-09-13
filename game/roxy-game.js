@@ -20,7 +20,7 @@
   const ENEMY_W = 44;
   const ENEMY_H = 46;
   const CHURU_RADIUS = 16;
-  const TOTAL_LIVES = 3;
+  const TOTAL_LIVES = 9;
 
   const canvas = document.getElementById("game-canvas");
   const ctx = canvas.getContext("2d");
