@@ -13,7 +13,7 @@
   const CANVAS_H = 540;
   const GROUND_Y = 480;
   const GRAVITY = 0.6;
-  const JUMP_VELOCITY = -12.2;
+  const JUMP_VELOCITY = -15.5;
   const MOVE_SPEED = 4.2;
   const PLAYER_W = 46;
   const PLAYER_H = 58;
@@ -287,14 +287,14 @@
           { x: 3050, y: 400, width: 120, height: 20 }
         ],
         cords: [
-          { x: 220, width: 60 }, { x: 460, width: 60 },
-          { x: 830, width: 55 }, { x: 940, width: 55 },
-          { x: 1150, width: 60 },
-          { x: 1440, width: 60 }, { x: 1560, width: 55 },
-          { x: 1780, width: 60 }, { x: 1980, width: 60 },
-          { x: 2170, width: 60 }, { x: 2400, width: 60 },
-          { x: 2650, width: 65 }, { x: 2900, width: 65 },
-          { x: 3150, width: 65 }
+          { x: 220, width: 40 }, { x: 460, width: 40 },
+          { x: 830, width: 35 }, { x: 940, width: 35 },
+          { x: 1150, width: 40 },
+          { x: 1440, width: 40 }, { x: 1560, width: 35 },
+          { x: 1780, width: 40 }, { x: 1980, width: 40 },
+          { x: 2170, width: 40 }, { x: 2400, width: 40 },
+          { x: 2650, width: 45 }, { x: 2900, width: 45 },
+          { x: 3150, width: 45 }
         ],
         churus: [
           { x: 160, y: 430 }, { x: 340, y: 430 }, { x: 475, y: 328 },
@@ -522,7 +522,9 @@
     player.vy += GRAVITY;
     player.y += player.vy;
 
-    // Landing collision (only when falling onto a surface's top edge)
+    // Landing collision (only when falling onto a surface's top edge —
+    // platforms are meant to be jumped up onto from below, not treated
+    // as solid ceilings, so ascent passes through freely)
     player.onGround = false;
     if (player.vy >= 0) {
       const newBottom = player.y + PLAYER_H;
@@ -885,6 +887,17 @@
       player.x = e.x;
       player.y = GROUND_Y - ENEMY_H - PLAYER_H;
       player.vy = 5;
+    },
+    teleportTo: (x, y) => {
+      player.x = x;
+      player.y = y;
+      player.vy = 0;
+      player.vx = 0;
+    },
+    getPlatforms: () => current.surfaces.filter((s) => !s.isGround),
+    resetForTest: () => {
+      lives = TOTAL_LIVES;
+      score = 0;
     }
   };
 })();
