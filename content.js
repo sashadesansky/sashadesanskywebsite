@@ -107,7 +107,7 @@ window.SITE_CONTENT = {
     }
   ],
 
-  // ---- AI Projects ------------------------------------------------------
+  // ---- AI Project Portfolio / Playground ---------------------------------
   // Add a new block any time you try something worth showcasing. Newest
   // entries should go at the top of the list.
   projects: [
